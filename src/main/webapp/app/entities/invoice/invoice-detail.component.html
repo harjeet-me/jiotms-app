@@ -1,0 +1,45 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="invoice">
+            <h2><span jhiTranslate="jiotmsApp.invoice.detail.title">Invoice</span> {{invoice.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="jiotmsApp.invoice.bookingNo">Booking No</span></dt>
+                <dd>
+                    <span>{{invoice.bookingNo}}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsApp.invoice.invoiceTotal">Invoice Total</span></dt>
+                <dd>
+                    <span>{{invoice.invoiceTotal}}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsApp.invoice.invoiceDueDate">Invoice Due Date</span></dt>
+                <dd>
+                    <span>{{invoice.invoiceDueDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsApp.invoice.status">Status</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'jiotmsApp.StatusEnum.' + invoice.status}}">{{invoice.status}}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsApp.invoice.invoiceTo">Invoice To</span></dt>
+                <dd>
+                    <div *ngIf="invoice.invoiceTo">
+                        <a [routerLink]="['/customer', invoice.invoiceTo?.id, 'view']">{{invoice.invoiceTo?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/invoice', invoice.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

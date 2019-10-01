@@ -1,0 +1,10 @@
+{
+  "jiotmsApp": {
+    "EquipmentEnum": {
+      "null": "",
+      "TRAILER": "TRAILER",
+      "CONTAINER": "CONTAINER",
+      "CHASIS": "CHASIS"
+    }
+  }
+}
