@@ -42,6 +42,32 @@ public class CacheConfiguration {
             createCache(cm, com.jiotms.myapp.domain.User.class.getName());
             createCache(cm, com.jiotms.myapp.domain.Authority.class.getName());
             createCache(cm, com.jiotms.myapp.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.jiotms.myapp.domain.Booking.class.getName());
+            createCache(cm, com.jiotms.myapp.domain.Booking.class.getName() + ".bookingItems");
+            createCache(cm, com.jiotms.myapp.domain.Invoice.class.getName());
+            createCache(cm, com.jiotms.myapp.domain.InvoiceItem.class.getName());
+            createCache(cm, com.jiotms.myapp.domain.Insurance.class.getName());
+            createCache(cm, com.jiotms.myapp.domain.Contact.class.getName());
+            createCache(cm, com.jiotms.myapp.domain.BookingItem.class.getName());
+            createCache(cm, com.jiotms.myapp.domain.Equipment.class.getName());
+            createCache(cm, com.jiotms.myapp.domain.Customer.class.getName());
+            createCache(cm, com.jiotms.myapp.domain.Customer.class.getName() + ".bookings");
+            createCache(cm, com.jiotms.myapp.domain.Vendor.class.getName());
+            createCache(cm, com.jiotms.myapp.domain.Container.class.getName());
+            createCache(cm, com.jiotms.myapp.domain.Driver.class.getName());
+            createCache(cm, com.jiotms.myapp.domain.Driver.class.getName() + ".bookingItems");
+            createCache(cm, com.jiotms.myapp.domain.Location.class.getName());
+            createCache(cm, com.jiotms.myapp.domain.Region.class.getName());
+            createCache(cm, com.jiotms.myapp.domain.Country.class.getName());
+            createCache(cm, com.jiotms.myapp.domain.Department.class.getName());
+            createCache(cm, com.jiotms.myapp.domain.Department.class.getName() + ".employees");
+            createCache(cm, com.jiotms.myapp.domain.Task.class.getName());
+            createCache(cm, com.jiotms.myapp.domain.Task.class.getName() + ".jobs");
+            createCache(cm, com.jiotms.myapp.domain.Employee.class.getName());
+            createCache(cm, com.jiotms.myapp.domain.Employee.class.getName() + ".jobs");
+            createCache(cm, com.jiotms.myapp.domain.Job.class.getName());
+            createCache(cm, com.jiotms.myapp.domain.Job.class.getName() + ".tasks");
+            createCache(cm, com.jiotms.myapp.domain.JobHistory.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }
