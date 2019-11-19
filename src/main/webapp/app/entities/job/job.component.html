@@ -8,6 +8,7 @@
             </span>
         </button>
     </h2>
+    <jhi-alert-error></jhi-alert-error>
     <jhi-alert></jhi-alert>
     <div class="row">
         <div class="col-sm-12">
@@ -32,12 +33,12 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="jobTitle"><span jhiTranslate="jiotmsApp.job.jobTitle">Job Title</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="minSalary"><span jhiTranslate="jiotmsApp.job.minSalary">Min Salary</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="maxSalary"><span jhiTranslate="jiotmsApp.job.maxSalary">Max Salary</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="employee.id"><span jhiTranslate="jiotmsApp.job.employee">Employee</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th></th>
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="jobTitle"><span jhiTranslate="jiotmsApp.job.jobTitle">Job Title</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="minSalary"><span jhiTranslate="jiotmsApp.job.minSalary">Min Salary</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="maxSalary"><span jhiTranslate="jiotmsApp.job.maxSalary">Max Salary</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="employee.id"><span jhiTranslate="jiotmsApp.job.employee">Employee</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
             </tr>
             </thead>
             <tbody>

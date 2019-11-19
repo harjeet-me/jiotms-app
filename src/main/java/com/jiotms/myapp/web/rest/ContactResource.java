@@ -136,5 +136,4 @@ public class ContactResource {
         log.debug("REST request to search Contacts for query {}", query);
         return contactService.search(query);
     }
-
 }

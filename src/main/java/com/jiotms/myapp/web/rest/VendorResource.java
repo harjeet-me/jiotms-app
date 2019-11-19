@@ -131,5 +131,4 @@ public class VendorResource {
         log.debug("REST request to search Vendors for query {}", query);
         return vendorService.search(query);
     }
-
 }

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import { Resolve, ActivatedRouteSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
 import { Observable, of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Insurance } from 'app/shared/model/insurance.model';
 import { InsuranceService } from './insurance.service';
 import { InsuranceComponent } from './insurance.component';
@@ -16,13 +16,10 @@ import { IInsurance } from 'app/shared/model/insurance.model';
 export class InsuranceResolve implements Resolve<IInsurance> {
   constructor(private service: InsuranceService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IInsurance> {
+  resolve(route: ActivatedRouteSnapshot): Observable<IInsurance> {
     const id = route.params['id'];
     if (id) {
-      return this.service.find(id).pipe(
-        filter((response: HttpResponse<Insurance>) => response.ok),
-        map((insurance: HttpResponse<Insurance>) => insurance.body)
-      );
+      return this.service.find(id).pipe(map((insurance: HttpResponse<Insurance>) => insurance.body));
     }
     return of(new Insurance());
   }

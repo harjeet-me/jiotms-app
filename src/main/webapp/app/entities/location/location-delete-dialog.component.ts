@@ -21,7 +21,7 @@ export class LocationDeleteDialogComponent {
   }
 
   confirmDelete(id: number) {
-    this.locationService.delete(id).subscribe(response => {
+    this.locationService.delete(id).subscribe(() => {
       this.eventManager.broadcast({
         name: 'locationListModification',
         content: 'Deleted an location'
@@ -46,11 +46,11 @@ export class LocationDeletePopupComponent implements OnInit, OnDestroy {
         this.ngbModalRef = this.modalService.open(LocationDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
         this.ngbModalRef.componentInstance.location = location;
         this.ngbModalRef.result.then(
-          result => {
+          () => {
             this.router.navigate(['/location', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           },
-          reason => {
+          () => {
             this.router.navigate(['/location', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           }

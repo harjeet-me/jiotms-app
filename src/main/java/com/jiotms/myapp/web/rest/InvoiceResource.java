@@ -131,5 +131,4 @@ public class InvoiceResource {
         log.debug("REST request to search Invoices for query {}", query);
         return invoiceService.search(query);
     }
-
 }

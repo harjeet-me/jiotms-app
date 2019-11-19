@@ -21,7 +21,7 @@ export class VendorDeleteDialogComponent {
   }
 
   confirmDelete(id: number) {
-    this.vendorService.delete(id).subscribe(response => {
+    this.vendorService.delete(id).subscribe(() => {
       this.eventManager.broadcast({
         name: 'vendorListModification',
         content: 'Deleted an vendor'
@@ -46,11 +46,11 @@ export class VendorDeletePopupComponent implements OnInit, OnDestroy {
         this.ngbModalRef = this.modalService.open(VendorDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
         this.ngbModalRef.componentInstance.vendor = vendor;
         this.ngbModalRef.result.then(
-          result => {
+          () => {
             this.router.navigate(['/vendor', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           },
-          reason => {
+          () => {
             this.router.navigate(['/vendor', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           }

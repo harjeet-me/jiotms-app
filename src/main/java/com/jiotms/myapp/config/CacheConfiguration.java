@@ -68,6 +68,11 @@ public class CacheConfiguration {
             createCache(cm, com.jiotms.myapp.domain.Job.class.getName());
             createCache(cm, com.jiotms.myapp.domain.Job.class.getName() + ".tasks");
             createCache(cm, com.jiotms.myapp.domain.JobHistory.class.getName());
+            createCache(cm, com.jiotms.myapp.domain.LoadOrder.class.getName());
+            createCache(cm, com.jiotms.myapp.domain.LoadOrder.class.getName() + ".bookingItems");
+            createCache(cm, com.jiotms.myapp.domain.BookingItem.class.getName() + ".equipment");
+            createCache(cm, com.jiotms.myapp.domain.BookingItem.class.getName() + ".drivers");
+            createCache(cm, com.jiotms.myapp.domain.Customer.class.getName() + ".loadOrders");
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -21,7 +21,7 @@ export class TaskDeleteDialogComponent {
   }
 
   confirmDelete(id: number) {
-    this.taskService.delete(id).subscribe(response => {
+    this.taskService.delete(id).subscribe(() => {
       this.eventManager.broadcast({
         name: 'taskListModification',
         content: 'Deleted an task'
@@ -46,11 +46,11 @@ export class TaskDeletePopupComponent implements OnInit, OnDestroy {
         this.ngbModalRef = this.modalService.open(TaskDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
         this.ngbModalRef.componentInstance.task = task;
         this.ngbModalRef.result.then(
-          result => {
+          () => {
             this.router.navigate(['/task', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           },
-          reason => {
+          () => {
             this.router.navigate(['/task', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           }

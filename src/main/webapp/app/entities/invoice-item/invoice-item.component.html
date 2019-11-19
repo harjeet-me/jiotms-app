@@ -8,6 +8,7 @@
             </span>
         </button>
     </h2>
+    <jhi-alert-error></jhi-alert-error>
     <jhi-alert></jhi-alert>
     <div class="row">
         <div class="col-sm-12">
@@ -32,19 +33,25 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr>
-            <th><span jhiTranslate="global.field.id">ID</span></th>
-            <th><span jhiTranslate="jiotmsApp.invoiceItem.name">Name</span></th>
-            <th><span jhiTranslate="jiotmsApp.invoiceItem.status">Status</span></th>
-            <th><span jhiTranslate="jiotmsApp.invoiceItem.shipmentNumber">Shipment Number</span></th>
-            <th><span jhiTranslate="jiotmsApp.invoiceItem.bol">Bol</span></th>
-            <th></th>
+            <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+            <th scope="col" ><span jhiTranslate="jiotmsApp.invoiceItem.description">Description</span></th>
+            <th scope="col" ><span jhiTranslate="jiotmsApp.invoiceItem.qty">Qty</span></th>
+            <th scope="col" ><span jhiTranslate="jiotmsApp.invoiceItem.price">Price</span></th>
+            <th scope="col" ><span jhiTranslate="jiotmsApp.invoiceItem.total">Total</span></th>
+            <th scope="col" ><span jhiTranslate="jiotmsApp.invoiceItem.status">Status</span></th>
+            <th scope="col" ><span jhiTranslate="jiotmsApp.invoiceItem.shipmentNumber">Shipment Number</span></th>
+            <th scope="col" ><span jhiTranslate="jiotmsApp.invoiceItem.bol">Bol</span></th>
+            <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let invoiceItem of invoiceItems ;trackBy: trackId">
                 <td><a [routerLink]="['/invoice-item', invoiceItem.id, 'view' ]">{{invoiceItem.id}}</a></td>
-                <td>{{invoiceItem.name}}</td>
-                <td jhiTranslate="{{'jiotmsApp.StatusEnum.' + invoiceItem.status}}">{{invoiceItem.status}}</td>
+                <td>{{invoiceItem.description}}</td>
+                <td>{{invoiceItem.qty}}</td>
+                <td>{{invoiceItem.price}}</td>
+                <td>{{invoiceItem.total}}</td>
+                <td jhiTranslate="{{'jiotmsApp.InvoiceStatus.' + invoiceItem.status}}">{{invoiceItem.status}}</td>
                 <td>{{invoiceItem.shipmentNumber}}</td>
                 <td>{{invoiceItem.bol}}</td>
                 <td class="text-right">

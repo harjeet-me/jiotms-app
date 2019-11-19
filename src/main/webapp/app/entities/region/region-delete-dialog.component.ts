@@ -21,7 +21,7 @@ export class RegionDeleteDialogComponent {
   }
 
   confirmDelete(id: number) {
-    this.regionService.delete(id).subscribe(response => {
+    this.regionService.delete(id).subscribe(() => {
       this.eventManager.broadcast({
         name: 'regionListModification',
         content: 'Deleted an region'
@@ -46,11 +46,11 @@ export class RegionDeletePopupComponent implements OnInit, OnDestroy {
         this.ngbModalRef = this.modalService.open(RegionDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
         this.ngbModalRef.componentInstance.region = region;
         this.ngbModalRef.result.then(
-          result => {
+          () => {
             this.router.navigate(['/region', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           },
-          reason => {
+          () => {
             this.router.navigate(['/region', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           }

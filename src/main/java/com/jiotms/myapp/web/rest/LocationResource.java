@@ -136,5 +136,4 @@ public class LocationResource {
         log.debug("REST request to search Locations for query {}", query);
         return locationService.search(query);
     }
-
 }

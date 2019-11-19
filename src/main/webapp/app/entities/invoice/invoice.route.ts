@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import { Resolve, ActivatedRouteSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
 import { Observable, of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Invoice } from 'app/shared/model/invoice.model';
 import { InvoiceService } from './invoice.service';
 import { InvoiceComponent } from './invoice.component';
@@ -16,13 +16,10 @@ import { IInvoice } from 'app/shared/model/invoice.model';
 export class InvoiceResolve implements Resolve<IInvoice> {
   constructor(private service: InvoiceService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IInvoice> {
+  resolve(route: ActivatedRouteSnapshot): Observable<IInvoice> {
     const id = route.params['id'];
     if (id) {
-      return this.service.find(id).pipe(
-        filter((response: HttpResponse<Invoice>) => response.ok),
-        map((invoice: HttpResponse<Invoice>) => invoice.body)
-      );
+      return this.service.find(id).pipe(map((invoice: HttpResponse<Invoice>) => invoice.body));
     }
     return of(new Invoice());
   }

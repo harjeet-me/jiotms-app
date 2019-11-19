@@ -131,5 +131,4 @@ public class BookingItemResource {
         log.debug("REST request to search BookingItems for query {}", query);
         return bookingItemService.search(query);
     }
-
 }

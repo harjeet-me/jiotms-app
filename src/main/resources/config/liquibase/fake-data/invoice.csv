@@ -1,11 +1,11 @@
-id;booking_no;invoice_total;invoice_due_date;status
-1;ability Hat Iraq;48482;2019-10-01T01:08:32;ONROAD
-2;sky blue;55810;2019-09-30T13:36:01;DELIVERED
-3;Exclusive Moroccan Dirham card;14808;2019-09-30T23:38:12;ONROAD
-4;Home;34507;2019-09-30T08:40:28;DELIVERED
-5;Way Dominican Republic;59269;2019-09-30T14:20:30;PICKEDUP
-6;Re-contextualized;80313;2019-09-30T21:38:45;DELIVERED
-7;bypassing optical;15071;2019-09-30T22:46:26;PICKEDUP
-8;red firewall open-source;34866;2019-09-30T14:59:19;PICKEDUP
-9;disintermediate Cambridgeshire hacking;67569;2019-09-30T22:17:14;DELIVERED
-10;Profound;17495;2019-09-30T10:51:34;ONROAD
+id;order_no;invoice_tax_total;invoice_sub_total;invoice_total;invoice_date;invoice_due_date;status
+1;intuitive Open-architected system-worthy;32255;74076;84866;2019-11-18;2019-11-19;SENT
+2;Synergistic Personal Loan Account Sleek;518;50151;62789;2019-11-18;2019-11-19;DRAFT
+3;California interfaces;67202;3594;32815;2019-11-18;2019-11-19;PARTIALLY_PAID
+4;Assimilated;3883;82260;30326;2019-11-18;2019-11-18;VOIDED
+5;composite Orchestrator Club;84202;5168;19438;2019-11-18;2019-11-18;DRAFT
+6;Analyst card Licensed Cotton Ball;43352;43897;74404;2019-11-19;2019-11-19;DRAFT
+7;infomediaries Som Rustic Frozen Keyboard;44235;25024;23978;2019-11-18;2019-11-19;PAID
+8;payment e-markets system;4771;24773;56603;2019-11-18;2019-11-19;DRAFT
+9;solution;97951;70365;17533;2019-11-18;2019-11-19;VOIDED
+10;e-business Light;64977;39850;4805;2019-11-18;2019-11-18;DRAFT

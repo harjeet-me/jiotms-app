@@ -131,5 +131,4 @@ public class ContainerResource {
         log.debug("REST request to search Containers for query {}", query);
         return containerService.search(query);
     }
-
 }

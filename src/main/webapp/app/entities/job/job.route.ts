@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import { Resolve, ActivatedRouteSnapshot, Routes } from '@angular/router';
 import { JhiResolvePagingParams } from 'ng-jhipster';
 import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
 import { Observable, of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Job } from 'app/shared/model/job.model';
 import { JobService } from './job.service';
 import { JobComponent } from './job.component';
@@ -17,13 +17,10 @@ import { IJob } from 'app/shared/model/job.model';
 export class JobResolve implements Resolve<IJob> {
   constructor(private service: JobService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IJob> {
+  resolve(route: ActivatedRouteSnapshot): Observable<IJob> {
     const id = route.params['id'];
     if (id) {
-      return this.service.find(id).pipe(
-        filter((response: HttpResponse<Job>) => response.ok),
-        map((job: HttpResponse<Job>) => job.body)
-      );
+      return this.service.find(id).pipe(map((job: HttpResponse<Job>) => job.body));
     }
     return of(new Job());
   }

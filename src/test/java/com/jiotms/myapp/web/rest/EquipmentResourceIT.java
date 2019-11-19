@@ -189,10 +189,10 @@ public class EquipmentResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(equipment.getId().intValue())))
-            .andExpect(jsonPath("$.[*].number").value(hasItem(DEFAULT_NUMBER.toString())))
+            .andExpect(jsonPath("$.[*].number").value(hasItem(DEFAULT_NUMBER)))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
             .andExpect(jsonPath("$.[*].size").value(hasItem(DEFAULT_SIZE.toString())))
-            .andExpect(jsonPath("$.[*].insurance").value(hasItem(DEFAULT_INSURANCE.toString())));
+            .andExpect(jsonPath("$.[*].insurance").value(hasItem(DEFAULT_INSURANCE)));
     }
     
     @Test
@@ -206,10 +206,10 @@ public class EquipmentResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(equipment.getId().intValue()))
-            .andExpect(jsonPath("$.number").value(DEFAULT_NUMBER.toString()))
+            .andExpect(jsonPath("$.number").value(DEFAULT_NUMBER))
             .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()))
             .andExpect(jsonPath("$.size").value(DEFAULT_SIZE.toString()))
-            .andExpect(jsonPath("$.insurance").value(DEFAULT_INSURANCE.toString()));
+            .andExpect(jsonPath("$.insurance").value(DEFAULT_INSURANCE));
     }
 
     @Test
@@ -316,20 +316,5 @@ public class EquipmentResourceIT {
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
             .andExpect(jsonPath("$.[*].size").value(hasItem(DEFAULT_SIZE.toString())))
             .andExpect(jsonPath("$.[*].insurance").value(hasItem(DEFAULT_INSURANCE)));
-    }
-
-    @Test
-    @Transactional
-    public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(Equipment.class);
-        Equipment equipment1 = new Equipment();
-        equipment1.setId(1L);
-        Equipment equipment2 = new Equipment();
-        equipment2.setId(equipment1.getId());
-        assertThat(equipment1).isEqualTo(equipment2);
-        equipment2.setId(2L);
-        assertThat(equipment1).isNotEqualTo(equipment2);
-        equipment1.setId(null);
-        assertThat(equipment1).isNotEqualTo(equipment2);
     }
 }

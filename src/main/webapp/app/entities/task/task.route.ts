@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import { Resolve, ActivatedRouteSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
 import { Observable, of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Task } from 'app/shared/model/task.model';
 import { TaskService } from './task.service';
 import { TaskComponent } from './task.component';
@@ -16,13 +16,10 @@ import { ITask } from 'app/shared/model/task.model';
 export class TaskResolve implements Resolve<ITask> {
   constructor(private service: TaskService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ITask> {
+  resolve(route: ActivatedRouteSnapshot): Observable<ITask> {
     const id = route.params['id'];
     if (id) {
-      return this.service.find(id).pipe(
-        filter((response: HttpResponse<Task>) => response.ok),
-        map((task: HttpResponse<Task>) => task.body)
-      );
+      return this.service.find(id).pipe(map((task: HttpResponse<Task>) => task.body));
     }
     return of(new Task());
   }

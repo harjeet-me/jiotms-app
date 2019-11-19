@@ -20,7 +20,15 @@
             "fieldType": "String"
         }
     ],
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "bookingItem",
+            "otherEntityRelationshipName": "equipment",
+            "relationshipName": "bookingItem",
+            "otherEntityField": "id"
+        }
+    ],
     "changelogDate": "20191001062826",
     "entityTableName": "equipment",
     "dto": "no",
@@ -29,5 +37,6 @@
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "clientRootFolder": "",
-    "applications": "*"
+    "applications": "*",
+    "readOnly": false
 }

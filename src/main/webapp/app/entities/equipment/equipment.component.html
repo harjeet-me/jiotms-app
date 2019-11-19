@@ -8,6 +8,7 @@
             </span>
         </button>
     </h2>
+    <jhi-alert-error></jhi-alert-error>
     <jhi-alert></jhi-alert>
     <div class="row">
         <div class="col-sm-12">
@@ -32,12 +33,13 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr>
-            <th><span jhiTranslate="global.field.id">ID</span></th>
-            <th><span jhiTranslate="jiotmsApp.equipment.number">Number</span></th>
-            <th><span jhiTranslate="jiotmsApp.equipment.type">Type</span></th>
-            <th><span jhiTranslate="jiotmsApp.equipment.size">Size</span></th>
-            <th><span jhiTranslate="jiotmsApp.equipment.insurance">Insurance</span></th>
-            <th></th>
+            <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+            <th scope="col" ><span jhiTranslate="jiotmsApp.equipment.number">Number</span></th>
+            <th scope="col" ><span jhiTranslate="jiotmsApp.equipment.type">Type</span></th>
+            <th scope="col" ><span jhiTranslate="jiotmsApp.equipment.size">Size</span></th>
+            <th scope="col" ><span jhiTranslate="jiotmsApp.equipment.insurance">Insurance</span></th>
+            <th scope="col" ><span jhiTranslate="jiotmsApp.equipment.bookingItem">Booking Item</span></th>
+            <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -47,6 +49,11 @@
                 <td jhiTranslate="{{'jiotmsApp.EquipmentEnum.' + equipment.type}}">{{equipment.type}}</td>
                 <td jhiTranslate="{{'jiotmsApp.SizeEnum.' + equipment.size}}">{{equipment.size}}</td>
                 <td>{{equipment.insurance}}</td>
+                <td>
+                    <div *ngIf="equipment.bookingItem">
+                        <a [routerLink]="['/booking-item', equipment.bookingItem?.id, 'view' ]" >{{equipment.bookingItem?.id}}</a>
+                    </div>
+                </td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"

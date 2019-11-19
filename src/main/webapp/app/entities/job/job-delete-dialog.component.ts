@@ -21,7 +21,7 @@ export class JobDeleteDialogComponent {
   }
 
   confirmDelete(id: number) {
-    this.jobService.delete(id).subscribe(response => {
+    this.jobService.delete(id).subscribe(() => {
       this.eventManager.broadcast({
         name: 'jobListModification',
         content: 'Deleted an job'
@@ -46,11 +46,11 @@ export class JobDeletePopupComponent implements OnInit, OnDestroy {
         this.ngbModalRef = this.modalService.open(JobDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
         this.ngbModalRef.componentInstance.job = job;
         this.ngbModalRef.result.then(
-          result => {
+          () => {
             this.router.navigate(['/job', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           },
-          reason => {
+          () => {
             this.router.navigate(['/job', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           }

@@ -5,13 +5,25 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="jiotmsApp.invoiceItem.name">Name</span></dt>
+                <dt><span jhiTranslate="jiotmsApp.invoiceItem.description">Description</span></dt>
                 <dd>
-                    <span>{{invoiceItem.name}}</span>
+                    <span>{{invoiceItem.description}}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsApp.invoiceItem.qty">Qty</span></dt>
+                <dd>
+                    <span>{{invoiceItem.qty}}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsApp.invoiceItem.price">Price</span></dt>
+                <dd>
+                    <span>{{invoiceItem.price}}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsApp.invoiceItem.total">Total</span></dt>
+                <dd>
+                    <span>{{invoiceItem.total}}</span>
                 </dd>
                 <dt><span jhiTranslate="jiotmsApp.invoiceItem.status">Status</span></dt>
                 <dd>
-                    <span jhiTranslate="{{'jiotmsApp.StatusEnum.' + invoiceItem.status}}">{{invoiceItem.status}}</span>
+                    <span jhiTranslate="{{'jiotmsApp.InvoiceStatus.' + invoiceItem.status}}">{{invoiceItem.status}}</span>
                 </dd>
                 <dt><span jhiTranslate="jiotmsApp.invoiceItem.shipmentNumber">Shipment Number</span></dt>
                 <dd>

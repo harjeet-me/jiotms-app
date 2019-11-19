@@ -21,7 +21,7 @@ export class InsuranceDeleteDialogComponent {
   }
 
   confirmDelete(id: number) {
-    this.insuranceService.delete(id).subscribe(response => {
+    this.insuranceService.delete(id).subscribe(() => {
       this.eventManager.broadcast({
         name: 'insuranceListModification',
         content: 'Deleted an insurance'
@@ -46,11 +46,11 @@ export class InsuranceDeletePopupComponent implements OnInit, OnDestroy {
         this.ngbModalRef = this.modalService.open(InsuranceDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
         this.ngbModalRef.componentInstance.insurance = insurance;
         this.ngbModalRef.result.then(
-          result => {
+          () => {
             this.router.navigate(['/insurance', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           },
-          reason => {
+          () => {
             this.router.navigate(['/insurance', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           }

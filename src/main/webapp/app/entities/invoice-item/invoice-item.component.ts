@@ -1,13 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { IInvoiceItem } from 'app/shared/model/invoice-item.model';
-import { AccountService } from 'app/core/auth/account.service';
 import { InvoiceItemService } from './invoice-item.service';
 
 @Component({
@@ -16,16 +13,13 @@ import { InvoiceItemService } from './invoice-item.service';
 })
 export class InvoiceItemComponent implements OnInit, OnDestroy {
   invoiceItems: IInvoiceItem[];
-  currentAccount: any;
   eventSubscriber: Subscription;
   currentSearch: string;
 
   constructor(
     protected invoiceItemService: InvoiceItemService,
-    protected jhiAlertService: JhiAlertService,
     protected eventManager: JhiEventManager,
-    protected activatedRoute: ActivatedRoute,
-    protected accountService: AccountService
+    protected activatedRoute: ActivatedRoute
   ) {
     this.currentSearch =
       this.activatedRoute.snapshot && this.activatedRoute.snapshot.queryParams['search']
@@ -39,26 +33,13 @@ export class InvoiceItemComponent implements OnInit, OnDestroy {
         .search({
           query: this.currentSearch
         })
-        .pipe(
-          filter((res: HttpResponse<IInvoiceItem[]>) => res.ok),
-          map((res: HttpResponse<IInvoiceItem[]>) => res.body)
-        )
-        .subscribe((res: IInvoiceItem[]) => (this.invoiceItems = res), (res: HttpErrorResponse) => this.onError(res.message));
+        .subscribe((res: HttpResponse<IInvoiceItem[]>) => (this.invoiceItems = res.body));
       return;
     }
-    this.invoiceItemService
-      .query()
-      .pipe(
-        filter((res: HttpResponse<IInvoiceItem[]>) => res.ok),
-        map((res: HttpResponse<IInvoiceItem[]>) => res.body)
-      )
-      .subscribe(
-        (res: IInvoiceItem[]) => {
-          this.invoiceItems = res;
-          this.currentSearch = '';
-        },
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
+    this.invoiceItemService.query().subscribe((res: HttpResponse<IInvoiceItem[]>) => {
+      this.invoiceItems = res.body;
+      this.currentSearch = '';
+    });
   }
 
   search(query) {
@@ -76,9 +57,6 @@ export class InvoiceItemComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadAll();
-    this.accountService.identity().then(account => {
-      this.currentAccount = account;
-    });
     this.registerChangeInInvoiceItems();
   }
 
@@ -91,10 +69,6 @@ export class InvoiceItemComponent implements OnInit, OnDestroy {
   }
 
   registerChangeInInvoiceItems() {
-    this.eventSubscriber = this.eventManager.subscribe('invoiceItemListModification', response => this.loadAll());
-  }
-
-  protected onError(errorMessage: string) {
-    this.jhiAlertService.error(errorMessage, null, null);
+    this.eventSubscriber = this.eventManager.subscribe('invoiceItemListModification', () => this.loadAll());
   }
 }

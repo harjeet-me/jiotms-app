@@ -45,11 +45,9 @@ public class JobHistoryResourceIT {
 
     private static final Instant DEFAULT_START_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_START_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
-    private static final Instant SMALLER_START_DATE = Instant.ofEpochMilli(-1L);
 
     private static final Instant DEFAULT_END_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_END_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
-    private static final Instant SMALLER_END_DATE = Instant.ofEpochMilli(-1L);
 
     private static final Language DEFAULT_LANGUAGE = Language.FRENCH;
     private static final Language UPDATED_LANGUAGE = Language.ENGLISH;
@@ -310,20 +308,5 @@ public class JobHistoryResourceIT {
             .andExpect(jsonPath("$.[*].startDate").value(hasItem(DEFAULT_START_DATE.toString())))
             .andExpect(jsonPath("$.[*].endDate").value(hasItem(DEFAULT_END_DATE.toString())))
             .andExpect(jsonPath("$.[*].language").value(hasItem(DEFAULT_LANGUAGE.toString())));
-    }
-
-    @Test
-    @Transactional
-    public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(JobHistory.class);
-        JobHistory jobHistory1 = new JobHistory();
-        jobHistory1.setId(1L);
-        JobHistory jobHistory2 = new JobHistory();
-        jobHistory2.setId(jobHistory1.getId());
-        assertThat(jobHistory1).isEqualTo(jobHistory2);
-        jobHistory2.setId(2L);
-        assertThat(jobHistory1).isNotEqualTo(jobHistory2);
-        jobHistory1.setId(null);
-        assertThat(jobHistory1).isNotEqualTo(jobHistory2);
     }
 }

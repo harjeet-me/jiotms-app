@@ -8,6 +8,7 @@
             </span>
         </button>
     </h2>
+    <jhi-alert-error></jhi-alert-error>
     <jhi-alert></jhi-alert>
     <div class="row">
         <div class="col-sm-12">
@@ -32,22 +33,28 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr>
-            <th><span jhiTranslate="global.field.id">ID</span></th>
-            <th><span jhiTranslate="jiotmsApp.invoice.bookingNo">Booking No</span></th>
-            <th><span jhiTranslate="jiotmsApp.invoice.invoiceTotal">Invoice Total</span></th>
-            <th><span jhiTranslate="jiotmsApp.invoice.invoiceDueDate">Invoice Due Date</span></th>
-            <th><span jhiTranslate="jiotmsApp.invoice.status">Status</span></th>
-            <th><span jhiTranslate="jiotmsApp.invoice.invoiceTo">Invoice To</span></th>
-            <th></th>
+            <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+            <th scope="col" ><span jhiTranslate="jiotmsApp.invoice.orderNo">Order No</span></th>
+            <th scope="col" ><span jhiTranslate="jiotmsApp.invoice.invoiceTaxTotal">Invoice Tax Total</span></th>
+            <th scope="col" ><span jhiTranslate="jiotmsApp.invoice.invoiceSubTotal">Invoice Sub Total</span></th>
+            <th scope="col" ><span jhiTranslate="jiotmsApp.invoice.invoiceTotal">Invoice Total</span></th>
+            <th scope="col" ><span jhiTranslate="jiotmsApp.invoice.invoiceDate">Invoice Date</span></th>
+            <th scope="col" ><span jhiTranslate="jiotmsApp.invoice.invoiceDueDate">Invoice Due Date</span></th>
+            <th scope="col" ><span jhiTranslate="jiotmsApp.invoice.status">Status</span></th>
+            <th scope="col" ><span jhiTranslate="jiotmsApp.invoice.invoiceTo">Invoice To</span></th>
+            <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let invoice of invoices ;trackBy: trackId">
                 <td><a [routerLink]="['/invoice', invoice.id, 'view' ]">{{invoice.id}}</a></td>
-                <td>{{invoice.bookingNo}}</td>
+                <td>{{invoice.orderNo}}</td>
+                <td>{{invoice.invoiceTaxTotal}}</td>
+                <td>{{invoice.invoiceSubTotal}}</td>
                 <td>{{invoice.invoiceTotal}}</td>
-                <td>{{invoice.invoiceDueDate | date:'medium'}}</td>
-                <td jhiTranslate="{{'jiotmsApp.StatusEnum.' + invoice.status}}">{{invoice.status}}</td>
+                <td>{{invoice.invoiceDate | date:'mediumDate'}}</td>
+                <td>{{invoice.invoiceDueDate | date:'mediumDate'}}</td>
+                <td jhiTranslate="{{'jiotmsApp.InvoiceStatus.' + invoice.status}}">{{invoice.status}}</td>
                 <td>
                     <div *ngIf="invoice.invoiceTo">
                         <a [routerLink]="['/customer', invoice.invoiceTo?.id, 'view' ]" >{{invoice.invoiceTo?.id}}</a>

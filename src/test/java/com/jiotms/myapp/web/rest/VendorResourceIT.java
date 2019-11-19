@@ -49,18 +49,15 @@ public class VendorResourceIT {
 
     private static final Long DEFAULT_DOT = 1L;
     private static final Long UPDATED_DOT = 2L;
-    private static final Long SMALLER_DOT = 1L - 1L;
 
     private static final Long DEFAULT_MC = 1L;
     private static final Long UPDATED_MC = 2L;
-    private static final Long SMALLER_MC = 1L - 1L;
 
     private static final String DEFAULT_EMAIL = "AAAAAAAAAA";
     private static final String UPDATED_EMAIL = "BBBBBBBBBB";
 
     private static final Long DEFAULT_PHONE_NUMBER = 1L;
     private static final Long UPDATED_PHONE_NUMBER = 2L;
-    private static final Long SMALLER_PHONE_NUMBER = 1L - 1L;
 
     private static final String DEFAULT_INSURANCE_PROVIDER = "AAAAAAAAAA";
     private static final String UPDATED_INSURANCE_PROVIDER = "BBBBBBBBBB";
@@ -214,14 +211,14 @@ public class VendorResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(vendor.getId().intValue())))
-            .andExpect(jsonPath("$.[*].company").value(hasItem(DEFAULT_COMPANY.toString())))
-            .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRST_NAME.toString())))
-            .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME.toString())))
+            .andExpect(jsonPath("$.[*].company").value(hasItem(DEFAULT_COMPANY)))
+            .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRST_NAME)))
+            .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME)))
             .andExpect(jsonPath("$.[*].dot").value(hasItem(DEFAULT_DOT.intValue())))
             .andExpect(jsonPath("$.[*].mc").value(hasItem(DEFAULT_MC.intValue())))
-            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
+            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
             .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DEFAULT_PHONE_NUMBER.intValue())))
-            .andExpect(jsonPath("$.[*].insuranceProvider").value(hasItem(DEFAULT_INSURANCE_PROVIDER.toString())));
+            .andExpect(jsonPath("$.[*].insuranceProvider").value(hasItem(DEFAULT_INSURANCE_PROVIDER)));
     }
     
     @Test
@@ -235,14 +232,14 @@ public class VendorResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(vendor.getId().intValue()))
-            .andExpect(jsonPath("$.company").value(DEFAULT_COMPANY.toString()))
-            .andExpect(jsonPath("$.firstName").value(DEFAULT_FIRST_NAME.toString()))
-            .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME.toString()))
+            .andExpect(jsonPath("$.company").value(DEFAULT_COMPANY))
+            .andExpect(jsonPath("$.firstName").value(DEFAULT_FIRST_NAME))
+            .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME))
             .andExpect(jsonPath("$.dot").value(DEFAULT_DOT.intValue()))
             .andExpect(jsonPath("$.mc").value(DEFAULT_MC.intValue()))
-            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()))
+            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL))
             .andExpect(jsonPath("$.phoneNumber").value(DEFAULT_PHONE_NUMBER.intValue()))
-            .andExpect(jsonPath("$.insuranceProvider").value(DEFAULT_INSURANCE_PROVIDER.toString()));
+            .andExpect(jsonPath("$.insuranceProvider").value(DEFAULT_INSURANCE_PROVIDER));
     }
 
     @Test
@@ -361,20 +358,5 @@ public class VendorResourceIT {
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
             .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DEFAULT_PHONE_NUMBER.intValue())))
             .andExpect(jsonPath("$.[*].insuranceProvider").value(hasItem(DEFAULT_INSURANCE_PROVIDER)));
-    }
-
-    @Test
-    @Transactional
-    public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(Vendor.class);
-        Vendor vendor1 = new Vendor();
-        vendor1.setId(1L);
-        Vendor vendor2 = new Vendor();
-        vendor2.setId(vendor1.getId());
-        assertThat(vendor1).isEqualTo(vendor2);
-        vendor2.setId(2L);
-        assertThat(vendor1).isNotEqualTo(vendor2);
-        vendor1.setId(null);
-        assertThat(vendor1).isNotEqualTo(vendor2);
     }
 }

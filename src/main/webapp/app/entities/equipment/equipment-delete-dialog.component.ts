@@ -21,7 +21,7 @@ export class EquipmentDeleteDialogComponent {
   }
 
   confirmDelete(id: number) {
-    this.equipmentService.delete(id).subscribe(response => {
+    this.equipmentService.delete(id).subscribe(() => {
       this.eventManager.broadcast({
         name: 'equipmentListModification',
         content: 'Deleted an equipment'
@@ -46,11 +46,11 @@ export class EquipmentDeletePopupComponent implements OnInit, OnDestroy {
         this.ngbModalRef = this.modalService.open(EquipmentDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
         this.ngbModalRef.componentInstance.equipment = equipment;
         this.ngbModalRef.result.then(
-          result => {
+          () => {
             this.router.navigate(['/equipment', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           },
-          reason => {
+          () => {
             this.router.navigate(['/equipment', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           }

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import { Resolve, ActivatedRouteSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
 import { Observable, of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { JobHistory } from 'app/shared/model/job-history.model';
 import { JobHistoryService } from './job-history.service';
 import { JobHistoryComponent } from './job-history.component';
@@ -16,13 +16,10 @@ import { IJobHistory } from 'app/shared/model/job-history.model';
 export class JobHistoryResolve implements Resolve<IJobHistory> {
   constructor(private service: JobHistoryService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IJobHistory> {
+  resolve(route: ActivatedRouteSnapshot): Observable<IJobHistory> {
     const id = route.params['id'];
     if (id) {
-      return this.service.find(id).pipe(
-        filter((response: HttpResponse<JobHistory>) => response.ok),
-        map((jobHistory: HttpResponse<JobHistory>) => jobHistory.body)
-      );
+      return this.service.find(id).pipe(map((jobHistory: HttpResponse<JobHistory>) => jobHistory.body));
     }
     return of(new JobHistory());
   }

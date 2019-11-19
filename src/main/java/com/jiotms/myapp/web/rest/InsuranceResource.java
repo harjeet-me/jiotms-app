@@ -136,5 +136,4 @@ public class InsuranceResource {
         log.debug("REST request to search Insurances for query {}", query);
         return insuranceService.search(query);
     }
-
 }

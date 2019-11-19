@@ -132,5 +132,4 @@ public class CustomerResource {
         log.debug("REST request to search Customers for query {}", query);
         return customerService.search(query);
     }
-
 }

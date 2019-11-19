@@ -131,5 +131,4 @@ public class EquipmentResource {
         log.debug("REST request to search Equipment for query {}", query);
         return equipmentService.search(query);
     }
-
 }

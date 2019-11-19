@@ -131,5 +131,4 @@ public class RegionResource {
         log.debug("REST request to search Regions for query {}", query);
         return regionService.search(query);
     }
-
 }

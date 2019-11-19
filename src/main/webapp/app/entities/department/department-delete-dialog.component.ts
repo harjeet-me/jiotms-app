@@ -25,7 +25,7 @@ export class DepartmentDeleteDialogComponent {
   }
 
   confirmDelete(id: number) {
-    this.departmentService.delete(id).subscribe(response => {
+    this.departmentService.delete(id).subscribe(() => {
       this.eventManager.broadcast({
         name: 'departmentListModification',
         content: 'Deleted an department'
@@ -50,11 +50,11 @@ export class DepartmentDeletePopupComponent implements OnInit, OnDestroy {
         this.ngbModalRef = this.modalService.open(DepartmentDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
         this.ngbModalRef.componentInstance.department = department;
         this.ngbModalRef.result.then(
-          result => {
+          () => {
             this.router.navigate(['/department', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           },
-          reason => {
+          () => {
             this.router.navigate(['/department', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           }
