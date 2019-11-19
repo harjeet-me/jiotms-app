@@ -1,27 +1,45 @@
 
-entity Booking {
-     name String,
-     loadNuber String,
+entity LoadOrder {
+   
+     orderNuber String,
+     description String ,
      shipmentNumber String,
      bol String,
-     status  StatusEnum
+     pickup LocalDate,
+	 drop LocalDate,
+      pickupLocation String,
+	dropLocation String,
+    currentLocation String,
+    status  StatusEnum,
+    detention Long,
+    chasisInTime Instant,    
+    pod ImageBlob,
+    hazmat Boolean,
+    recievedBy String
 	}
 
 
 entity Invoice {
-     bookingNo String,
+     orderNo String,
+     invoiceTaxTotal Double,
+     invoiceSubTotal Double,
      invoiceTotal Double,
-     invoiceDueDate Instant ,
-     status  StatusEnum
+     invoiceDate LocalDate ,
+     invoiceDueDate LocalDate ,
+     status  InvoiceStatus
 	
 }
 
 entity InvoiceItem {
-     name String,
+     
+     description String,
+     qty Integer,
+     price Integer,
+     total Integer,
      status String,
      shipmentNumber String,
      bol String,
-     status  StatusEnum
+     status  InvoiceStatus
 	
 }
 
@@ -136,7 +154,11 @@ enum SizeEnum {
 }
 
 enum StatusEnum {
-    PICKEDUP, ONROAD , DELIVERED
+    PICKEDUP, ONROAD , DELIVERED , INVOICED
+}
+
+enum InvoiceStatus {
+    DRAFT, GENERATED , SENT , PAID , OVERDRAFT , VOIDED , PARTIALLY_PAID
 }
 
 enum DesignationEnum {
@@ -172,7 +194,7 @@ relationship OneToMany {
 }
 
 
-relationship ManyToOne {
+relationship OneToMany {
 
    
     BookingItem {equipment(number)}   to Equipment,
