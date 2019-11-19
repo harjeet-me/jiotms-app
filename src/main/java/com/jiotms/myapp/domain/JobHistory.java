@@ -36,15 +36,18 @@ public class JobHistory implements Serializable {
     @Column(name = "language")
     private Language language;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
+
     @JoinColumn(unique = true)
     private Job job;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
+
     @JoinColumn(unique = true)
     private Department department;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
+
     @JoinColumn(unique = true)
     private Employee employee;
 

@@ -54,15 +54,12 @@ public class CustomerResourceIT {
 
     private static final Long DEFAULT_DOT = 1L;
     private static final Long UPDATED_DOT = 2L;
-    private static final Long SMALLER_DOT = 1L - 1L;
 
     private static final Long DEFAULT_MC = 1L;
     private static final Long UPDATED_MC = 2L;
-    private static final Long SMALLER_MC = 1L - 1L;
 
     private static final Long DEFAULT_PHONE_NUMBER = 1L;
     private static final Long UPDATED_PHONE_NUMBER = 2L;
-    private static final Long SMALLER_PHONE_NUMBER = 1L - 1L;
 
     private static final String DEFAULT_ADDRESS = "AAAAAAAAAA";
     private static final String UPDATED_ADDRESS = "BBBBBBBBBB";
@@ -266,19 +263,19 @@ public class CustomerResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(customer.getId().intValue())))
-            .andExpect(jsonPath("$.[*].company").value(hasItem(DEFAULT_COMPANY.toString())))
-            .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRST_NAME.toString())))
-            .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME.toString())))
-            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
+            .andExpect(jsonPath("$.[*].company").value(hasItem(DEFAULT_COMPANY)))
+            .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRST_NAME)))
+            .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME)))
+            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
             .andExpect(jsonPath("$.[*].dot").value(hasItem(DEFAULT_DOT.intValue())))
             .andExpect(jsonPath("$.[*].mc").value(hasItem(DEFAULT_MC.intValue())))
             .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DEFAULT_PHONE_NUMBER.intValue())))
-            .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS.toString())))
-            .andExpect(jsonPath("$.[*].streetAddress").value(hasItem(DEFAULT_STREET_ADDRESS.toString())))
-            .andExpect(jsonPath("$.[*].city").value(hasItem(DEFAULT_CITY.toString())))
-            .andExpect(jsonPath("$.[*].stateProvince").value(hasItem(DEFAULT_STATE_PROVINCE.toString())))
+            .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS)))
+            .andExpect(jsonPath("$.[*].streetAddress").value(hasItem(DEFAULT_STREET_ADDRESS)))
+            .andExpect(jsonPath("$.[*].city").value(hasItem(DEFAULT_CITY)))
+            .andExpect(jsonPath("$.[*].stateProvince").value(hasItem(DEFAULT_STATE_PROVINCE)))
             .andExpect(jsonPath("$.[*].country").value(hasItem(DEFAULT_COUNTRY.toString())))
-            .andExpect(jsonPath("$.[*].postalCode").value(hasItem(DEFAULT_POSTAL_CODE.toString())));
+            .andExpect(jsonPath("$.[*].postalCode").value(hasItem(DEFAULT_POSTAL_CODE)));
     }
     
     @Test
@@ -292,19 +289,19 @@ public class CustomerResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(customer.getId().intValue()))
-            .andExpect(jsonPath("$.company").value(DEFAULT_COMPANY.toString()))
-            .andExpect(jsonPath("$.firstName").value(DEFAULT_FIRST_NAME.toString()))
-            .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME.toString()))
-            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()))
+            .andExpect(jsonPath("$.company").value(DEFAULT_COMPANY))
+            .andExpect(jsonPath("$.firstName").value(DEFAULT_FIRST_NAME))
+            .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME))
+            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL))
             .andExpect(jsonPath("$.dot").value(DEFAULT_DOT.intValue()))
             .andExpect(jsonPath("$.mc").value(DEFAULT_MC.intValue()))
             .andExpect(jsonPath("$.phoneNumber").value(DEFAULT_PHONE_NUMBER.intValue()))
-            .andExpect(jsonPath("$.address").value(DEFAULT_ADDRESS.toString()))
-            .andExpect(jsonPath("$.streetAddress").value(DEFAULT_STREET_ADDRESS.toString()))
-            .andExpect(jsonPath("$.city").value(DEFAULT_CITY.toString()))
-            .andExpect(jsonPath("$.stateProvince").value(DEFAULT_STATE_PROVINCE.toString()))
+            .andExpect(jsonPath("$.address").value(DEFAULT_ADDRESS))
+            .andExpect(jsonPath("$.streetAddress").value(DEFAULT_STREET_ADDRESS))
+            .andExpect(jsonPath("$.city").value(DEFAULT_CITY))
+            .andExpect(jsonPath("$.stateProvince").value(DEFAULT_STATE_PROVINCE))
             .andExpect(jsonPath("$.country").value(DEFAULT_COUNTRY.toString()))
-            .andExpect(jsonPath("$.postalCode").value(DEFAULT_POSTAL_CODE.toString()));
+            .andExpect(jsonPath("$.postalCode").value(DEFAULT_POSTAL_CODE));
     }
 
     @Test
@@ -438,20 +435,5 @@ public class CustomerResourceIT {
             .andExpect(jsonPath("$.[*].stateProvince").value(hasItem(DEFAULT_STATE_PROVINCE)))
             .andExpect(jsonPath("$.[*].country").value(hasItem(DEFAULT_COUNTRY.toString())))
             .andExpect(jsonPath("$.[*].postalCode").value(hasItem(DEFAULT_POSTAL_CODE)));
-    }
-
-    @Test
-    @Transactional
-    public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(Customer.class);
-        Customer customer1 = new Customer();
-        customer1.setId(1L);
-        Customer customer2 = new Customer();
-        customer2.setId(customer1.getId());
-        assertThat(customer1).isEqualTo(customer2);
-        customer2.setId(2L);
-        assertThat(customer1).isNotEqualTo(customer2);
-        customer1.setId(null);
-        assertThat(customer1).isNotEqualTo(customer2);
     }
 }

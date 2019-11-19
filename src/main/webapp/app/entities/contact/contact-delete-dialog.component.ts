@@ -21,7 +21,7 @@ export class ContactDeleteDialogComponent {
   }
 
   confirmDelete(id: number) {
-    this.contactService.delete(id).subscribe(response => {
+    this.contactService.delete(id).subscribe(() => {
       this.eventManager.broadcast({
         name: 'contactListModification',
         content: 'Deleted an contact'
@@ -46,11 +46,11 @@ export class ContactDeletePopupComponent implements OnInit, OnDestroy {
         this.ngbModalRef = this.modalService.open(ContactDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
         this.ngbModalRef.componentInstance.contact = contact;
         this.ngbModalRef.result.then(
-          result => {
+          () => {
             this.router.navigate(['/contact', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           },
-          reason => {
+          () => {
             this.router.navigate(['/contact', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           }

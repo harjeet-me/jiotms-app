@@ -51,11 +51,9 @@ public class InsuranceResourceIT {
 
     private static final LocalDate DEFAULT_START_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_START_DATE = LocalDate.now(ZoneId.systemDefault());
-    private static final LocalDate SMALLER_START_DATE = LocalDate.ofEpochDay(-1L);
 
     private static final LocalDate DEFAULT_EXPIRY_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_EXPIRY_DATE = LocalDate.now(ZoneId.systemDefault());
-    private static final LocalDate SMALLER_EXPIRY_DATE = LocalDate.ofEpochDay(-1L);
 
     @Autowired
     private InsuranceRepository insuranceRepository;
@@ -197,9 +195,9 @@ public class InsuranceResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(insurance.getId().intValue())))
-            .andExpect(jsonPath("$.[*].providerNumber").value(hasItem(DEFAULT_PROVIDER_NUMBER.toString())))
-            .andExpect(jsonPath("$.[*].provider").value(hasItem(DEFAULT_PROVIDER.toString())))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+            .andExpect(jsonPath("$.[*].providerNumber").value(hasItem(DEFAULT_PROVIDER_NUMBER)))
+            .andExpect(jsonPath("$.[*].provider").value(hasItem(DEFAULT_PROVIDER)))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
             .andExpect(jsonPath("$.[*].startDate").value(hasItem(DEFAULT_START_DATE.toString())))
             .andExpect(jsonPath("$.[*].expiryDate").value(hasItem(DEFAULT_EXPIRY_DATE.toString())));
     }
@@ -215,9 +213,9 @@ public class InsuranceResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(insurance.getId().intValue()))
-            .andExpect(jsonPath("$.providerNumber").value(DEFAULT_PROVIDER_NUMBER.toString()))
-            .andExpect(jsonPath("$.provider").value(DEFAULT_PROVIDER.toString()))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
+            .andExpect(jsonPath("$.providerNumber").value(DEFAULT_PROVIDER_NUMBER))
+            .andExpect(jsonPath("$.provider").value(DEFAULT_PROVIDER))
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
             .andExpect(jsonPath("$.startDate").value(DEFAULT_START_DATE.toString()))
             .andExpect(jsonPath("$.expiryDate").value(DEFAULT_EXPIRY_DATE.toString()));
     }
@@ -329,20 +327,5 @@ public class InsuranceResourceIT {
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
             .andExpect(jsonPath("$.[*].startDate").value(hasItem(DEFAULT_START_DATE.toString())))
             .andExpect(jsonPath("$.[*].expiryDate").value(hasItem(DEFAULT_EXPIRY_DATE.toString())));
-    }
-
-    @Test
-    @Transactional
-    public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(Insurance.class);
-        Insurance insurance1 = new Insurance();
-        insurance1.setId(1L);
-        Insurance insurance2 = new Insurance();
-        insurance2.setId(insurance1.getId());
-        assertThat(insurance1).isEqualTo(insurance2);
-        insurance2.setId(2L);
-        assertThat(insurance1).isNotEqualTo(insurance2);
-        insurance1.setId(null);
-        assertThat(insurance1).isNotEqualTo(insurance2);
     }
 }

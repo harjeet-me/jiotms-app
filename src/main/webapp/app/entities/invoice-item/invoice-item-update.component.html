@@ -10,16 +10,35 @@
                         readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="jiotmsApp.invoiceItem.name" for="field_name">Name</label>
-                    <input type="text" class="form-control" name="name" id="field_name"
-                           formControlName="name"/>
+                    <label class="form-control-label" jhiTranslate="jiotmsApp.invoiceItem.description" for="field_description">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                           formControlName="description"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jiotmsApp.invoiceItem.qty" for="field_qty">Qty</label>
+                    <input type="number" class="form-control" name="qty" id="field_qty"
+                           formControlName="qty"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jiotmsApp.invoiceItem.price" for="field_price">Price</label>
+                    <input type="number" class="form-control" name="price" id="field_price"
+                           formControlName="price"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jiotmsApp.invoiceItem.total" for="field_total">Total</label>
+                    <input type="number" class="form-control" name="total" id="field_total"
+                           formControlName="total"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="jiotmsApp.invoiceItem.status" for="field_status">Status</label>
                     <select class="form-control" name="status" formControlName="status" id="field_status">
-                        <option value="PICKEDUP">{{'jiotmsApp.StatusEnum.PICKEDUP' | translate}}</option>
-                        <option value="ONROAD">{{'jiotmsApp.StatusEnum.ONROAD' | translate}}</option>
-                        <option value="DELIVERED">{{'jiotmsApp.StatusEnum.DELIVERED' | translate}}</option>
+                        <option value="DRAFT">{{'jiotmsApp.InvoiceStatus.DRAFT' | translate}}</option>
+                        <option value="GENERATED">{{'jiotmsApp.InvoiceStatus.GENERATED' | translate}}</option>
+                        <option value="SENT">{{'jiotmsApp.InvoiceStatus.SENT' | translate}}</option>
+                        <option value="PAID">{{'jiotmsApp.InvoiceStatus.PAID' | translate}}</option>
+                        <option value="OVERDRAFT">{{'jiotmsApp.InvoiceStatus.OVERDRAFT' | translate}}</option>
+                        <option value="VOIDED">{{'jiotmsApp.InvoiceStatus.VOIDED' | translate}}</option>
+                        <option value="PARTIALLY_PAID">{{'jiotmsApp.InvoiceStatus.PARTIALLY_PAID' | translate}}</option>
                     </select>
                 </div>
                 <div class="form-group">

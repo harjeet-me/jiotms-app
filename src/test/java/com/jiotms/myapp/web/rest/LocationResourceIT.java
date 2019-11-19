@@ -200,12 +200,12 @@ public class LocationResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(location.getId().intValue())))
-            .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS.toString())))
-            .andExpect(jsonPath("$.[*].streetAddress").value(hasItem(DEFAULT_STREET_ADDRESS.toString())))
-            .andExpect(jsonPath("$.[*].city").value(hasItem(DEFAULT_CITY.toString())))
-            .andExpect(jsonPath("$.[*].stateProvince").value(hasItem(DEFAULT_STATE_PROVINCE.toString())))
+            .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS)))
+            .andExpect(jsonPath("$.[*].streetAddress").value(hasItem(DEFAULT_STREET_ADDRESS)))
+            .andExpect(jsonPath("$.[*].city").value(hasItem(DEFAULT_CITY)))
+            .andExpect(jsonPath("$.[*].stateProvince").value(hasItem(DEFAULT_STATE_PROVINCE)))
             .andExpect(jsonPath("$.[*].country").value(hasItem(DEFAULT_COUNTRY.toString())))
-            .andExpect(jsonPath("$.[*].postalCode").value(hasItem(DEFAULT_POSTAL_CODE.toString())));
+            .andExpect(jsonPath("$.[*].postalCode").value(hasItem(DEFAULT_POSTAL_CODE)));
     }
     
     @Test
@@ -219,12 +219,12 @@ public class LocationResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(location.getId().intValue()))
-            .andExpect(jsonPath("$.address").value(DEFAULT_ADDRESS.toString()))
-            .andExpect(jsonPath("$.streetAddress").value(DEFAULT_STREET_ADDRESS.toString()))
-            .andExpect(jsonPath("$.city").value(DEFAULT_CITY.toString()))
-            .andExpect(jsonPath("$.stateProvince").value(DEFAULT_STATE_PROVINCE.toString()))
+            .andExpect(jsonPath("$.address").value(DEFAULT_ADDRESS))
+            .andExpect(jsonPath("$.streetAddress").value(DEFAULT_STREET_ADDRESS))
+            .andExpect(jsonPath("$.city").value(DEFAULT_CITY))
+            .andExpect(jsonPath("$.stateProvince").value(DEFAULT_STATE_PROVINCE))
             .andExpect(jsonPath("$.country").value(DEFAULT_COUNTRY.toString()))
-            .andExpect(jsonPath("$.postalCode").value(DEFAULT_POSTAL_CODE.toString()));
+            .andExpect(jsonPath("$.postalCode").value(DEFAULT_POSTAL_CODE));
     }
 
     @Test
@@ -337,20 +337,5 @@ public class LocationResourceIT {
             .andExpect(jsonPath("$.[*].stateProvince").value(hasItem(DEFAULT_STATE_PROVINCE)))
             .andExpect(jsonPath("$.[*].country").value(hasItem(DEFAULT_COUNTRY.toString())))
             .andExpect(jsonPath("$.[*].postalCode").value(hasItem(DEFAULT_POSTAL_CODE)));
-    }
-
-    @Test
-    @Transactional
-    public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(Location.class);
-        Location location1 = new Location();
-        location1.setId(1L);
-        Location location2 = new Location();
-        location2.setId(location1.getId());
-        assertThat(location1).isEqualTo(location2);
-        location2.setId(2L);
-        assertThat(location1).isNotEqualTo(location2);
-        location1.setId(null);
-        assertThat(location1).isNotEqualTo(location2);
     }
 }

@@ -8,6 +8,7 @@
             </span>
         </button>
     </h2>
+    <jhi-alert-error></jhi-alert-error>
     <jhi-alert></jhi-alert>
     <div class="row">
         <div class="col-sm-12">
@@ -32,17 +33,17 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="firstName"><span jhiTranslate="jiotmsApp.employee.firstName">First Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="lastName"><span jhiTranslate="jiotmsApp.employee.lastName">Last Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="email"><span jhiTranslate="jiotmsApp.employee.email">Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="phoneNumber"><span jhiTranslate="jiotmsApp.employee.phoneNumber">Phone Number</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="hireDate"><span jhiTranslate="jiotmsApp.employee.hireDate">Hire Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="salary"><span jhiTranslate="jiotmsApp.employee.salary">Salary</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="commissionPct"><span jhiTranslate="jiotmsApp.employee.commissionPct">Commission Pct</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="department.id"><span jhiTranslate="jiotmsApp.employee.department">Department</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="manager.id"><span jhiTranslate="jiotmsApp.employee.manager">Manager</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th></th>
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="firstName"><span jhiTranslate="jiotmsApp.employee.firstName">First Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="lastName"><span jhiTranslate="jiotmsApp.employee.lastName">Last Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="email"><span jhiTranslate="jiotmsApp.employee.email">Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="phoneNumber"><span jhiTranslate="jiotmsApp.employee.phoneNumber">Phone Number</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="hireDate"><span jhiTranslate="jiotmsApp.employee.hireDate">Hire Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="salary"><span jhiTranslate="jiotmsApp.employee.salary">Salary</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="commissionPct"><span jhiTranslate="jiotmsApp.employee.commissionPct">Commission Pct</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="manager.id"><span jhiTranslate="jiotmsApp.employee.manager">Manager</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="department.id"><span jhiTranslate="jiotmsApp.employee.department">Department</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
             </tr>
             </thead>
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
@@ -56,13 +57,13 @@
                 <td>{{employee.salary}}</td>
                 <td>{{employee.commissionPct}}</td>
                 <td>
-                    <div *ngIf="employee.department">
-                        <a [routerLink]="['/department', employee.department?.id, 'view' ]" >{{employee.department?.id}}</a>
+                    <div *ngIf="employee.manager">
+                        <a [routerLink]="['/employee', employee.manager?.id, 'view' ]" >{{employee.manager?.id}}</a>
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="employee.manager">
-                        <a [routerLink]="['/employee', employee.manager?.id, 'view' ]" >{{employee.manager?.id}}</a>
+                    <div *ngIf="employee.department">
+                        <a [routerLink]="['/department', employee.department?.id, 'view' ]" >{{employee.department?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">

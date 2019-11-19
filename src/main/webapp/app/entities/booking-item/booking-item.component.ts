@@ -1,13 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
+import { JhiEventManager, JhiDataUtils } from 'ng-jhipster';
 
 import { IBookingItem } from 'app/shared/model/booking-item.model';
-import { AccountService } from 'app/core/auth/account.service';
 import { BookingItemService } from './booking-item.service';
 
 @Component({
@@ -16,17 +13,14 @@ import { BookingItemService } from './booking-item.service';
 })
 export class BookingItemComponent implements OnInit, OnDestroy {
   bookingItems: IBookingItem[];
-  currentAccount: any;
   eventSubscriber: Subscription;
   currentSearch: string;
 
   constructor(
     protected bookingItemService: BookingItemService,
-    protected jhiAlertService: JhiAlertService,
     protected dataUtils: JhiDataUtils,
     protected eventManager: JhiEventManager,
-    protected activatedRoute: ActivatedRoute,
-    protected accountService: AccountService
+    protected activatedRoute: ActivatedRoute
   ) {
     this.currentSearch =
       this.activatedRoute.snapshot && this.activatedRoute.snapshot.queryParams['search']
@@ -40,26 +34,13 @@ export class BookingItemComponent implements OnInit, OnDestroy {
         .search({
           query: this.currentSearch
         })
-        .pipe(
-          filter((res: HttpResponse<IBookingItem[]>) => res.ok),
-          map((res: HttpResponse<IBookingItem[]>) => res.body)
-        )
-        .subscribe((res: IBookingItem[]) => (this.bookingItems = res), (res: HttpErrorResponse) => this.onError(res.message));
+        .subscribe((res: HttpResponse<IBookingItem[]>) => (this.bookingItems = res.body));
       return;
     }
-    this.bookingItemService
-      .query()
-      .pipe(
-        filter((res: HttpResponse<IBookingItem[]>) => res.ok),
-        map((res: HttpResponse<IBookingItem[]>) => res.body)
-      )
-      .subscribe(
-        (res: IBookingItem[]) => {
-          this.bookingItems = res;
-          this.currentSearch = '';
-        },
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
+    this.bookingItemService.query().subscribe((res: HttpResponse<IBookingItem[]>) => {
+      this.bookingItems = res.body;
+      this.currentSearch = '';
+    });
   }
 
   search(query) {
@@ -77,9 +58,6 @@ export class BookingItemComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadAll();
-    this.accountService.identity().then(account => {
-      this.currentAccount = account;
-    });
     this.registerChangeInBookingItems();
   }
 
@@ -100,10 +78,6 @@ export class BookingItemComponent implements OnInit, OnDestroy {
   }
 
   registerChangeInBookingItems() {
-    this.eventSubscriber = this.eventManager.subscribe('bookingItemListModification', response => this.loadAll());
-  }
-
-  protected onError(errorMessage: string) {
-    this.jhiAlertService.error(errorMessage, null, null);
+    this.eventSubscriber = this.eventManager.subscribe('bookingItemListModification', () => this.loadAll());
   }
 }

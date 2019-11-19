@@ -8,6 +8,7 @@
             </span>
         </button>
     </h2>
+    <jhi-alert-error></jhi-alert-error>
     <jhi-alert></jhi-alert>
     <div class="row">
         <div class="col-sm-12">
@@ -32,15 +33,16 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr>
-            <th><span jhiTranslate="global.field.id">ID</span></th>
-            <th><span jhiTranslate="jiotmsApp.driver.company">Company</span></th>
-            <th><span jhiTranslate="jiotmsApp.driver.firstName">First Name</span></th>
-            <th><span jhiTranslate="jiotmsApp.driver.lastName">Last Name</span></th>
-            <th><span jhiTranslate="jiotmsApp.driver.email">Email</span></th>
-            <th><span jhiTranslate="jiotmsApp.driver.phoneNumber">Phone Number</span></th>
-            <th><span jhiTranslate="jiotmsApp.driver.licenceNumber">Licence Number</span></th>
-            <th><span jhiTranslate="jiotmsApp.driver.dob">Dob</span></th>
-            <th></th>
+            <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+            <th scope="col" ><span jhiTranslate="jiotmsApp.driver.company">Company</span></th>
+            <th scope="col" ><span jhiTranslate="jiotmsApp.driver.firstName">First Name</span></th>
+            <th scope="col" ><span jhiTranslate="jiotmsApp.driver.lastName">Last Name</span></th>
+            <th scope="col" ><span jhiTranslate="jiotmsApp.driver.email">Email</span></th>
+            <th scope="col" ><span jhiTranslate="jiotmsApp.driver.phoneNumber">Phone Number</span></th>
+            <th scope="col" ><span jhiTranslate="jiotmsApp.driver.licenceNumber">Licence Number</span></th>
+            <th scope="col" ><span jhiTranslate="jiotmsApp.driver.dob">Dob</span></th>
+            <th scope="col" ><span jhiTranslate="jiotmsApp.driver.bookingItem">Booking Item</span></th>
+            <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -53,6 +55,11 @@
                 <td>{{driver.phoneNumber}}</td>
                 <td>{{driver.licenceNumber}}</td>
                 <td>{{driver.dob | date:'mediumDate'}}</td>
+                <td>
+                    <div *ngIf="driver.bookingItem">
+                        <a [routerLink]="['/booking-item', driver.bookingItem?.id, 'view' ]" >{{driver.bookingItem?.description}}</a>
+                    </div>
+                </td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"

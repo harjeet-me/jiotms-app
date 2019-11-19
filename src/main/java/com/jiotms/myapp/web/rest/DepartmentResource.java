@@ -132,5 +132,4 @@ public class DepartmentResource {
         log.debug("REST request to search Departments for query {}", query);
         return departmentService.search(query);
     }
-
 }

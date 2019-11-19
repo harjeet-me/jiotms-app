@@ -55,15 +55,12 @@ public class EmployeeResourceIT {
 
     private static final Instant DEFAULT_HIRE_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_HIRE_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
-    private static final Instant SMALLER_HIRE_DATE = Instant.ofEpochMilli(-1L);
 
     private static final Long DEFAULT_SALARY = 1L;
     private static final Long UPDATED_SALARY = 2L;
-    private static final Long SMALLER_SALARY = 1L - 1L;
 
     private static final Long DEFAULT_COMMISSION_PCT = 1L;
     private static final Long UPDATED_COMMISSION_PCT = 2L;
-    private static final Long SMALLER_COMMISSION_PCT = 1L - 1L;
 
     @Autowired
     private EmployeeRepository employeeRepository;
@@ -208,10 +205,10 @@ public class EmployeeResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(employee.getId().intValue())))
-            .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRST_NAME.toString())))
-            .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME.toString())))
-            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
-            .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DEFAULT_PHONE_NUMBER.toString())))
+            .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRST_NAME)))
+            .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME)))
+            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
+            .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DEFAULT_PHONE_NUMBER)))
             .andExpect(jsonPath("$.[*].hireDate").value(hasItem(DEFAULT_HIRE_DATE.toString())))
             .andExpect(jsonPath("$.[*].salary").value(hasItem(DEFAULT_SALARY.intValue())))
             .andExpect(jsonPath("$.[*].commissionPct").value(hasItem(DEFAULT_COMMISSION_PCT.intValue())));
@@ -228,10 +225,10 @@ public class EmployeeResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(employee.getId().intValue()))
-            .andExpect(jsonPath("$.firstName").value(DEFAULT_FIRST_NAME.toString()))
-            .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME.toString()))
-            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()))
-            .andExpect(jsonPath("$.phoneNumber").value(DEFAULT_PHONE_NUMBER.toString()))
+            .andExpect(jsonPath("$.firstName").value(DEFAULT_FIRST_NAME))
+            .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME))
+            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL))
+            .andExpect(jsonPath("$.phoneNumber").value(DEFAULT_PHONE_NUMBER))
             .andExpect(jsonPath("$.hireDate").value(DEFAULT_HIRE_DATE.toString()))
             .andExpect(jsonPath("$.salary").value(DEFAULT_SALARY.intValue()))
             .andExpect(jsonPath("$.commissionPct").value(DEFAULT_COMMISSION_PCT.intValue()));
@@ -348,20 +345,5 @@ public class EmployeeResourceIT {
             .andExpect(jsonPath("$.[*].hireDate").value(hasItem(DEFAULT_HIRE_DATE.toString())))
             .andExpect(jsonPath("$.[*].salary").value(hasItem(DEFAULT_SALARY.intValue())))
             .andExpect(jsonPath("$.[*].commissionPct").value(hasItem(DEFAULT_COMMISSION_PCT.intValue())));
-    }
-
-    @Test
-    @Transactional
-    public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(Employee.class);
-        Employee employee1 = new Employee();
-        employee1.setId(1L);
-        Employee employee2 = new Employee();
-        employee2.setId(employee1.getId());
-        assertThat(employee1).isEqualTo(employee2);
-        employee2.setId(2L);
-        assertThat(employee1).isNotEqualTo(employee2);
-        employee1.setId(null);
-        assertThat(employee1).isNotEqualTo(employee2);
     }
 }

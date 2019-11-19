@@ -54,15 +54,12 @@ public class DriverResourceIT {
 
     private static final Long DEFAULT_PHONE_NUMBER = 1L;
     private static final Long UPDATED_PHONE_NUMBER = 2L;
-    private static final Long SMALLER_PHONE_NUMBER = 1L - 1L;
 
     private static final Long DEFAULT_LICENCE_NUMBER = 1L;
     private static final Long UPDATED_LICENCE_NUMBER = 2L;
-    private static final Long SMALLER_LICENCE_NUMBER = 1L - 1L;
 
     private static final LocalDate DEFAULT_DOB = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_DOB = LocalDate.now(ZoneId.systemDefault());
-    private static final LocalDate SMALLER_DOB = LocalDate.ofEpochDay(-1L);
 
     @Autowired
     private DriverRepository driverRepository;
@@ -210,10 +207,10 @@ public class DriverResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(driver.getId().intValue())))
-            .andExpect(jsonPath("$.[*].company").value(hasItem(DEFAULT_COMPANY.toString())))
-            .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRST_NAME.toString())))
-            .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME.toString())))
-            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
+            .andExpect(jsonPath("$.[*].company").value(hasItem(DEFAULT_COMPANY)))
+            .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRST_NAME)))
+            .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME)))
+            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
             .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DEFAULT_PHONE_NUMBER.intValue())))
             .andExpect(jsonPath("$.[*].licenceNumber").value(hasItem(DEFAULT_LICENCE_NUMBER.intValue())))
             .andExpect(jsonPath("$.[*].dob").value(hasItem(DEFAULT_DOB.toString())));
@@ -230,10 +227,10 @@ public class DriverResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(driver.getId().intValue()))
-            .andExpect(jsonPath("$.company").value(DEFAULT_COMPANY.toString()))
-            .andExpect(jsonPath("$.firstName").value(DEFAULT_FIRST_NAME.toString()))
-            .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME.toString()))
-            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()))
+            .andExpect(jsonPath("$.company").value(DEFAULT_COMPANY))
+            .andExpect(jsonPath("$.firstName").value(DEFAULT_FIRST_NAME))
+            .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME))
+            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL))
             .andExpect(jsonPath("$.phoneNumber").value(DEFAULT_PHONE_NUMBER.intValue()))
             .andExpect(jsonPath("$.licenceNumber").value(DEFAULT_LICENCE_NUMBER.intValue()))
             .andExpect(jsonPath("$.dob").value(DEFAULT_DOB.toString()));
@@ -352,20 +349,5 @@ public class DriverResourceIT {
             .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DEFAULT_PHONE_NUMBER.intValue())))
             .andExpect(jsonPath("$.[*].licenceNumber").value(hasItem(DEFAULT_LICENCE_NUMBER.intValue())))
             .andExpect(jsonPath("$.[*].dob").value(hasItem(DEFAULT_DOB.toString())));
-    }
-
-    @Test
-    @Transactional
-    public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(Driver.class);
-        Driver driver1 = new Driver();
-        driver1.setId(1L);
-        Driver driver2 = new Driver();
-        driver2.setId(driver1.getId());
-        assertThat(driver1).isEqualTo(driver2);
-        driver2.setId(2L);
-        assertThat(driver1).isNotEqualTo(driver2);
-        driver1.setId(null);
-        assertThat(driver1).isNotEqualTo(driver2);
     }
 }

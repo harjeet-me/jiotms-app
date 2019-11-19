@@ -1,13 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
+import { JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 
 import { IEmployee } from 'app/shared/model/employee.model';
-import { AccountService } from 'app/core/auth/account.service';
 
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { EmployeeService } from './employee.service';
@@ -18,7 +15,6 @@ import { EmployeeService } from './employee.service';
 })
 export class EmployeeComponent implements OnInit, OnDestroy {
   employees: IEmployee[];
-  currentAccount: any;
   eventSubscriber: Subscription;
   itemsPerPage: number;
   links: any;
@@ -30,11 +26,9 @@ export class EmployeeComponent implements OnInit, OnDestroy {
 
   constructor(
     protected employeeService: EmployeeService,
-    protected jhiAlertService: JhiAlertService,
     protected eventManager: JhiEventManager,
     protected parseLinks: JhiParseLinks,
-    protected activatedRoute: ActivatedRoute,
-    protected accountService: AccountService
+    protected activatedRoute: ActivatedRoute
   ) {
     this.employees = [];
     this.itemsPerPage = ITEMS_PER_PAGE;
@@ -59,10 +53,7 @@ export class EmployeeComponent implements OnInit, OnDestroy {
           size: this.itemsPerPage,
           sort: this.sort()
         })
-        .subscribe(
-          (res: HttpResponse<IEmployee[]>) => this.paginateEmployees(res.body, res.headers),
-          (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        .subscribe((res: HttpResponse<IEmployee[]>) => this.paginateEmployees(res.body, res.headers));
       return;
     }
     this.employeeService
@@ -71,10 +62,7 @@ export class EmployeeComponent implements OnInit, OnDestroy {
         size: this.itemsPerPage,
         sort: this.sort()
       })
-      .subscribe(
-        (res: HttpResponse<IEmployee[]>) => this.paginateEmployees(res.body, res.headers),
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
+      .subscribe((res: HttpResponse<IEmployee[]>) => this.paginateEmployees(res.body, res.headers));
   }
 
   reset() {
@@ -117,9 +105,6 @@ export class EmployeeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadAll();
-    this.accountService.identity().then(account => {
-      this.currentAccount = account;
-    });
     this.registerChangeInEmployees();
   }
 
@@ -132,7 +117,7 @@ export class EmployeeComponent implements OnInit, OnDestroy {
   }
 
   registerChangeInEmployees() {
-    this.eventSubscriber = this.eventManager.subscribe('employeeListModification', response => this.reset());
+    this.eventSubscriber = this.eventManager.subscribe('employeeListModification', () => this.reset());
   }
 
   sort() {
@@ -149,9 +134,5 @@ export class EmployeeComponent implements OnInit, OnDestroy {
     for (let i = 0; i < data.length; i++) {
       this.employees.push(data[i]);
     }
-  }
-
-  protected onError(errorMessage: string) {
-    this.jhiAlertService.error(errorMessage, null, null);
   }
 }

@@ -21,7 +21,7 @@ export class CountryDeleteDialogComponent {
   }
 
   confirmDelete(id: number) {
-    this.countryService.delete(id).subscribe(response => {
+    this.countryService.delete(id).subscribe(() => {
       this.eventManager.broadcast({
         name: 'countryListModification',
         content: 'Deleted an country'
@@ -46,11 +46,11 @@ export class CountryDeletePopupComponent implements OnInit, OnDestroy {
         this.ngbModalRef = this.modalService.open(CountryDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
         this.ngbModalRef.componentInstance.country = country;
         this.ngbModalRef.result.then(
-          result => {
+          () => {
             this.router.navigate(['/country', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           },
-          reason => {
+          () => {
             this.router.navigate(['/country', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           }

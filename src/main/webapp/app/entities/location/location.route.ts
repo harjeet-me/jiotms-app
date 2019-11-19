@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import { Resolve, ActivatedRouteSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
 import { Observable, of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Location } from 'app/shared/model/location.model';
 import { LocationService } from './location.service';
 import { LocationComponent } from './location.component';
@@ -16,13 +16,10 @@ import { ILocation } from 'app/shared/model/location.model';
 export class LocationResolve implements Resolve<ILocation> {
   constructor(private service: LocationService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ILocation> {
+  resolve(route: ActivatedRouteSnapshot): Observable<ILocation> {
     const id = route.params['id'];
     if (id) {
-      return this.service.find(id).pipe(
-        filter((response: HttpResponse<Location>) => response.ok),
-        map((location: HttpResponse<Location>) => location.body)
-      );
+      return this.service.find(id).pipe(map((location: HttpResponse<Location>) => location.body));
     }
     return of(new Location());
   }

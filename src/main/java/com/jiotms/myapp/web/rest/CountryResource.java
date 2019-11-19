@@ -131,5 +131,4 @@ public class CountryResource {
         log.debug("REST request to search Countries for query {}", query);
         return countryService.search(query);
     }
-
 }

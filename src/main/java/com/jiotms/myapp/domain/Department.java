@@ -31,7 +31,8 @@ public class Department implements Serializable {
     @Column(name = "department_name", nullable = false)
     private String departmentName;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
+
     @JoinColumn(unique = true)
     private Location location;
 

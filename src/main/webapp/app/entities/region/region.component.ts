@@ -1,13 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { IRegion } from 'app/shared/model/region.model';
-import { AccountService } from 'app/core/auth/account.service';
 import { RegionService } from './region.service';
 
 @Component({
@@ -16,17 +13,10 @@ import { RegionService } from './region.service';
 })
 export class RegionComponent implements OnInit, OnDestroy {
   regions: IRegion[];
-  currentAccount: any;
   eventSubscriber: Subscription;
   currentSearch: string;
 
-  constructor(
-    protected regionService: RegionService,
-    protected jhiAlertService: JhiAlertService,
-    protected eventManager: JhiEventManager,
-    protected activatedRoute: ActivatedRoute,
-    protected accountService: AccountService
-  ) {
+  constructor(protected regionService: RegionService, protected eventManager: JhiEventManager, protected activatedRoute: ActivatedRoute) {
     this.currentSearch =
       this.activatedRoute.snapshot && this.activatedRoute.snapshot.queryParams['search']
         ? this.activatedRoute.snapshot.queryParams['search']
@@ -39,26 +29,13 @@ export class RegionComponent implements OnInit, OnDestroy {
         .search({
           query: this.currentSearch
         })
-        .pipe(
-          filter((res: HttpResponse<IRegion[]>) => res.ok),
-          map((res: HttpResponse<IRegion[]>) => res.body)
-        )
-        .subscribe((res: IRegion[]) => (this.regions = res), (res: HttpErrorResponse) => this.onError(res.message));
+        .subscribe((res: HttpResponse<IRegion[]>) => (this.regions = res.body));
       return;
     }
-    this.regionService
-      .query()
-      .pipe(
-        filter((res: HttpResponse<IRegion[]>) => res.ok),
-        map((res: HttpResponse<IRegion[]>) => res.body)
-      )
-      .subscribe(
-        (res: IRegion[]) => {
-          this.regions = res;
-          this.currentSearch = '';
-        },
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
+    this.regionService.query().subscribe((res: HttpResponse<IRegion[]>) => {
+      this.regions = res.body;
+      this.currentSearch = '';
+    });
   }
 
   search(query) {
@@ -76,9 +53,6 @@ export class RegionComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadAll();
-    this.accountService.identity().then(account => {
-      this.currentAccount = account;
-    });
     this.registerChangeInRegions();
   }
 
@@ -91,10 +65,6 @@ export class RegionComponent implements OnInit, OnDestroy {
   }
 
   registerChangeInRegions() {
-    this.eventSubscriber = this.eventManager.subscribe('regionListModification', response => this.loadAll());
-  }
-
-  protected onError(errorMessage: string) {
-    this.jhiAlertService.error(errorMessage, null, null);
+    this.eventSubscriber = this.eventManager.subscribe('regionListModification', () => this.loadAll());
   }
 }

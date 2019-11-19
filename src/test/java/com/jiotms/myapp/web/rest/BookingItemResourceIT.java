@@ -47,11 +47,9 @@ public class BookingItemResourceIT {
 
     private static final Instant DEFAULT_PICKUP = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_PICKUP = Instant.now().truncatedTo(ChronoUnit.MILLIS);
-    private static final Instant SMALLER_PICKUP = Instant.ofEpochMilli(-1L);
 
     private static final Instant DEFAULT_DROP = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_DROP = Instant.now().truncatedTo(ChronoUnit.MILLIS);
-    private static final Instant SMALLER_DROP = Instant.ofEpochMilli(-1L);
 
     private static final String DEFAULT_SOURCE = "AAAAAAAAAA";
     private static final String UPDATED_SOURCE = "BBBBBBBBBB";
@@ -67,11 +65,9 @@ public class BookingItemResourceIT {
 
     private static final Long DEFAULT_DETENTION = 1L;
     private static final Long UPDATED_DETENTION = 2L;
-    private static final Long SMALLER_DETENTION = 1L - 1L;
 
     private static final Instant DEFAULT_CHASIS_IN_TIME = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_CHASIS_IN_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
-    private static final Instant SMALLER_CHASIS_IN_TIME = Instant.ofEpochMilli(-1L);
 
     private static final byte[] DEFAULT_POD = TestUtil.createByteArray(1, "0");
     private static final byte[] UPDATED_POD = TestUtil.createByteArray(1, "1");
@@ -248,19 +244,19 @@ public class BookingItemResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(bookingItem.getId().intValue())))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
             .andExpect(jsonPath("$.[*].pickup").value(hasItem(DEFAULT_PICKUP.toString())))
             .andExpect(jsonPath("$.[*].drop").value(hasItem(DEFAULT_DROP.toString())))
-            .andExpect(jsonPath("$.[*].source").value(hasItem(DEFAULT_SOURCE.toString())))
-            .andExpect(jsonPath("$.[*].destination").value(hasItem(DEFAULT_DESTINATION.toString())))
-            .andExpect(jsonPath("$.[*].currentLocation").value(hasItem(DEFAULT_CURRENT_LOCATION.toString())))
+            .andExpect(jsonPath("$.[*].source").value(hasItem(DEFAULT_SOURCE)))
+            .andExpect(jsonPath("$.[*].destination").value(hasItem(DEFAULT_DESTINATION)))
+            .andExpect(jsonPath("$.[*].currentLocation").value(hasItem(DEFAULT_CURRENT_LOCATION)))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].detention").value(hasItem(DEFAULT_DETENTION.intValue())))
             .andExpect(jsonPath("$.[*].chasisInTime").value(hasItem(DEFAULT_CHASIS_IN_TIME.toString())))
             .andExpect(jsonPath("$.[*].podContentType").value(hasItem(DEFAULT_POD_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].pod").value(hasItem(Base64Utils.encodeToString(DEFAULT_POD))))
             .andExpect(jsonPath("$.[*].hazmat").value(hasItem(DEFAULT_HAZMAT.booleanValue())))
-            .andExpect(jsonPath("$.[*].recievedBy").value(hasItem(DEFAULT_RECIEVED_BY.toString())));
+            .andExpect(jsonPath("$.[*].recievedBy").value(hasItem(DEFAULT_RECIEVED_BY)));
     }
     
     @Test
@@ -274,19 +270,19 @@ public class BookingItemResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(bookingItem.getId().intValue()))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
             .andExpect(jsonPath("$.pickup").value(DEFAULT_PICKUP.toString()))
             .andExpect(jsonPath("$.drop").value(DEFAULT_DROP.toString()))
-            .andExpect(jsonPath("$.source").value(DEFAULT_SOURCE.toString()))
-            .andExpect(jsonPath("$.destination").value(DEFAULT_DESTINATION.toString()))
-            .andExpect(jsonPath("$.currentLocation").value(DEFAULT_CURRENT_LOCATION.toString()))
+            .andExpect(jsonPath("$.source").value(DEFAULT_SOURCE))
+            .andExpect(jsonPath("$.destination").value(DEFAULT_DESTINATION))
+            .andExpect(jsonPath("$.currentLocation").value(DEFAULT_CURRENT_LOCATION))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
             .andExpect(jsonPath("$.detention").value(DEFAULT_DETENTION.intValue()))
             .andExpect(jsonPath("$.chasisInTime").value(DEFAULT_CHASIS_IN_TIME.toString()))
             .andExpect(jsonPath("$.podContentType").value(DEFAULT_POD_CONTENT_TYPE))
             .andExpect(jsonPath("$.pod").value(Base64Utils.encodeToString(DEFAULT_POD)))
             .andExpect(jsonPath("$.hazmat").value(DEFAULT_HAZMAT.booleanValue()))
-            .andExpect(jsonPath("$.recievedBy").value(DEFAULT_RECIEVED_BY.toString()));
+            .andExpect(jsonPath("$.recievedBy").value(DEFAULT_RECIEVED_BY));
     }
 
     @Test
@@ -420,20 +416,5 @@ public class BookingItemResourceIT {
             .andExpect(jsonPath("$.[*].pod").value(hasItem(Base64Utils.encodeToString(DEFAULT_POD))))
             .andExpect(jsonPath("$.[*].hazmat").value(hasItem(DEFAULT_HAZMAT.booleanValue())))
             .andExpect(jsonPath("$.[*].recievedBy").value(hasItem(DEFAULT_RECIEVED_BY)));
-    }
-
-    @Test
-    @Transactional
-    public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(BookingItem.class);
-        BookingItem bookingItem1 = new BookingItem();
-        bookingItem1.setId(1L);
-        BookingItem bookingItem2 = new BookingItem();
-        bookingItem2.setId(bookingItem1.getId());
-        assertThat(bookingItem1).isEqualTo(bookingItem2);
-        bookingItem2.setId(2L);
-        assertThat(bookingItem1).isNotEqualTo(bookingItem2);
-        bookingItem1.setId(null);
-        assertThat(bookingItem1).isNotEqualTo(bookingItem2);
     }
 }

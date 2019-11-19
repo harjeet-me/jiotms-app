@@ -131,5 +131,4 @@ public class DriverResource {
         log.debug("REST request to search Drivers for query {}", query);
         return driverService.search(query);
     }
-
 }

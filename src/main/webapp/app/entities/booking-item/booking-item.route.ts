@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import { Resolve, ActivatedRouteSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
 import { Observable, of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { BookingItem } from 'app/shared/model/booking-item.model';
 import { BookingItemService } from './booking-item.service';
 import { BookingItemComponent } from './booking-item.component';
@@ -16,13 +16,10 @@ import { IBookingItem } from 'app/shared/model/booking-item.model';
 export class BookingItemResolve implements Resolve<IBookingItem> {
   constructor(private service: BookingItemService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IBookingItem> {
+  resolve(route: ActivatedRouteSnapshot): Observable<IBookingItem> {
     const id = route.params['id'];
     if (id) {
-      return this.service.find(id).pipe(
-        filter((response: HttpResponse<BookingItem>) => response.ok),
-        map((bookingItem: HttpResponse<BookingItem>) => bookingItem.body)
-      );
+      return this.service.find(id).pipe(map((bookingItem: HttpResponse<BookingItem>) => bookingItem.body));
     }
     return of(new BookingItem());
   }

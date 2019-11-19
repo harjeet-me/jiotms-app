@@ -25,7 +25,7 @@ export class InvoiceItemDeleteDialogComponent {
   }
 
   confirmDelete(id: number) {
-    this.invoiceItemService.delete(id).subscribe(response => {
+    this.invoiceItemService.delete(id).subscribe(() => {
       this.eventManager.broadcast({
         name: 'invoiceItemListModification',
         content: 'Deleted an invoiceItem'
@@ -50,11 +50,11 @@ export class InvoiceItemDeletePopupComponent implements OnInit, OnDestroy {
         this.ngbModalRef = this.modalService.open(InvoiceItemDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
         this.ngbModalRef.componentInstance.invoiceItem = invoiceItem;
         this.ngbModalRef.result.then(
-          result => {
+          () => {
             this.router.navigate(['/invoice-item', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           },
-          reason => {
+          () => {
             this.router.navigate(['/invoice-item', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           }

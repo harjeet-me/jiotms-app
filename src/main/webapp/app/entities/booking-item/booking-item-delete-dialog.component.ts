@@ -25,7 +25,7 @@ export class BookingItemDeleteDialogComponent {
   }
 
   confirmDelete(id: number) {
-    this.bookingItemService.delete(id).subscribe(response => {
+    this.bookingItemService.delete(id).subscribe(() => {
       this.eventManager.broadcast({
         name: 'bookingItemListModification',
         content: 'Deleted an bookingItem'
@@ -50,11 +50,11 @@ export class BookingItemDeletePopupComponent implements OnInit, OnDestroy {
         this.ngbModalRef = this.modalService.open(BookingItemDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
         this.ngbModalRef.componentInstance.bookingItem = bookingItem;
         this.ngbModalRef.result.then(
-          result => {
+          () => {
             this.router.navigate(['/booking-item', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           },
-          reason => {
+          () => {
             this.router.navigate(['/booking-item', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           }

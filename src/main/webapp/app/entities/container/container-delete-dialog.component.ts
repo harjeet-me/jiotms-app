@@ -21,7 +21,7 @@ export class ContainerDeleteDialogComponent {
   }
 
   confirmDelete(id: number) {
-    this.containerService.delete(id).subscribe(response => {
+    this.containerService.delete(id).subscribe(() => {
       this.eventManager.broadcast({
         name: 'containerListModification',
         content: 'Deleted an container'
@@ -46,11 +46,11 @@ export class ContainerDeletePopupComponent implements OnInit, OnDestroy {
         this.ngbModalRef = this.modalService.open(ContainerDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
         this.ngbModalRef.componentInstance.container = container;
         this.ngbModalRef.result.then(
-          result => {
+          () => {
             this.router.navigate(['/container', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           },
-          reason => {
+          () => {
             this.router.navigate(['/container', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           }

@@ -131,5 +131,4 @@ public class TaskResource {
         log.debug("REST request to search Tasks for query {}", query);
         return taskService.search(query);
     }
-
 }

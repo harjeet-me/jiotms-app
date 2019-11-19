@@ -21,7 +21,7 @@ export class DriverDeleteDialogComponent {
   }
 
   confirmDelete(id: number) {
-    this.driverService.delete(id).subscribe(response => {
+    this.driverService.delete(id).subscribe(() => {
       this.eventManager.broadcast({
         name: 'driverListModification',
         content: 'Deleted an driver'
@@ -46,11 +46,11 @@ export class DriverDeletePopupComponent implements OnInit, OnDestroy {
         this.ngbModalRef = this.modalService.open(DriverDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
         this.ngbModalRef.componentInstance.driver = driver;
         this.ngbModalRef.result.then(
-          result => {
+          () => {
             this.router.navigate(['/driver', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           },
-          reason => {
+          () => {
             this.router.navigate(['/driver', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           }
